@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Bing News</title>
+    </head>
+    <body>
+        <form method="post" action="/bing_news/" enctype="multipart/form-data">
+        {% csrf_token %}
+            Search:<br>
+            <input type="text" name="q" value="" required><br>
+            <input type="submit" value="Submit">
+        </form>
+
+        {% if results %}
+            <table>
+                {% for news in results %}
+                    <tr>
+                        <td>
+                            <img src="{{ news.image.thumbnail.contentUrl }}">
+                            <br>
+                            <h2><a href="{{ news.url }}">{{ news.name }}</a></h2>
+                            <br>
+                            <p>
+                                {{ news.description }}
+                            </p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+    </body>
+</html>
